@@ -35,6 +35,7 @@ class AntarespostController extends Controller
             $timestamp = date("Y-m-d H:i:s", strtotime($data["m2m:cin"]["ct"]));
             array_push($dataToDB, $timestamp);
         }
+        $data_collection = collect($data_collection)->first();
         return $data_collection;
     }
 
