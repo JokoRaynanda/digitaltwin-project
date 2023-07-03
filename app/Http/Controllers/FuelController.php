@@ -1,0 +1,62 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Fuel;
+use Illuminate\Http\Request;
+
+class FuelController extends Controller
+{
+    
+    //Display a listing of the resource.
+    public function index()
+    {
+        $fuel = Fuel::all();
+        return response()->json([
+            'data'=> $fuel
+        ]);
+    }
+    
+    // Store a newly created resource in storage.
+    public function store(Request $request)
+    {
+        $fuel = Fuel::create([
+            'device_id' => $request->device_id,
+            'engine_fuel' => $request->engine_fuel,
+            'created_at_by_sensor' => $request->created_at_by_sensor
+        ]);
+        return response()->json([
+            'data'=> $fuel
+        ]);
+    }
+
+    //Display the specified resource.
+     public function show(Fuel $fuel)
+    {
+        return response()->json([
+            'data'=> $fuel
+        ]);
+    }
+ 
+    //Update the specified resource in storage.
+    public function update(Request $request, Fuel $fuel)
+    {
+        $fuel->device_id = $request->device_id;
+        $fuel->engine_fuel = $request->engine_fuel;
+        $fuel->created_at_by_sensor = $request->created_at_by_sensor;
+        $fuel->save();
+
+        return response()->json([
+            'data' => $fuel
+        ]);
+    }
+  
+    //Remove the specified resource from storage.
+    public function destroy(Fuel $fuel)
+    {
+        $fuel->delete();
+        return response()->json([
+            'message' => 'data fuel terhapus'
+        ],204);
+    }
+}
