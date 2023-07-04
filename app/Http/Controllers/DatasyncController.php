@@ -49,10 +49,7 @@ class DatasyncController extends Controller
         return $data_collection;
     }
 
-    public function index()
-    {
-        return $this->get_data();
-    }
+    
 
     public function store()
     {

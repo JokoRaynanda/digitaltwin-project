@@ -51,12 +51,20 @@ class TemperatureController extends Controller
     }
 
 
-    public function destroy(temperature $temperature)
+    public function destroy($id)
     {
-        $temperature->delete();
-        return response()->json([
-            'message' => 'data temperature terhapus'
-        ],204);
-    
+        if(temperature::where('id',$id)->exists()) {
+            $temperature=temperature::find($id);
+            $temperature->delete();
+            return response()->json([
+                'message' => 'data temperature terhapus'
+            ],202);
+        }
+        else
+        {
+            return response()->json([
+                'message' => 'data tidak ditemukan'
+            ],202);
+        }
     }
 }

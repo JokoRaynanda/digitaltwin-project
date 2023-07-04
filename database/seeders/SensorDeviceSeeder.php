@@ -23,11 +23,10 @@ class SensorDeviceSeeder extends Seeder
             'width'=> '20,63',
             'height'=> '15,87',
         ]);
-
         DB::table('sensor_devices')->insert([
             'aset_id'=> '1',
             'name_device'=> 'Sensor Flow Rate',
-            'type_data'=> 'string',
+            'model'=> 'YF-S201',
             'operating_voltage'=> '5V',
             'operating_current'=> '15mA',
             'length'=> '60',

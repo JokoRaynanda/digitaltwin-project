@@ -48,11 +48,20 @@ class RpmController extends Controller
     }
 
    
-   public function destroy(rpm $rpm)
+   public function destroy($id)
     {
-        $rpm->delete();
-        return response()->json([
-            'message' => 'data rpm terhapus'
-        ],204);
+        if(rpm::where('id',$id)->exists()) {
+            $rpm=rpm::find($id);
+            $rpm->delete();
+            return response()->json([
+                'message' => 'data rpm terhapus'
+            ],202);
+        }
+        else
+        {
+            return response()->json([
+                'message' => 'data tidak ditemukan'
+            ],202);
+        }
     }
 }

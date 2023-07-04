@@ -63,11 +63,20 @@ class SensordeviceController extends Controller
     }
 
 
-    public function destroy(sensordevice $sensordevice)
+    public function destroy($id)
     {
-        $sensordevice->delete();
-        return response()->json([
-            'message' => 'data sensordevice terhapus'
-        ],204);
+        if(sensordevice::where('id',$id)->exists()) {
+            $sensordevice=sensordevice::find($id);
+            $sensordevice->delete();
+            return response()->json([
+                'message' => 'data sensor device terhapus'
+            ],202);
+        }
+        else
+        {
+            return response()->json([
+                'message' => 'data tidak ditemukan'
+            ],202);
+        }
     }
 }

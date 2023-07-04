@@ -53,11 +53,20 @@ class ServoController extends Controller
         ]);
     }
 
-    public function destroy(servo $servo)
+    public function destroy($id)
     {
-        $servo->delete();
-        return response()->json([
-            'message' => 'servo_setrpm'
-        ],204);
+        if(servo::where('id',$id)->exists()) {
+            $servo=servo::find($id);
+            $servo->delete();
+            return response()->json([
+                'message' => 'data servo terhapus'
+            ],202);
+        }
+        else
+        {
+            return response()->json([
+                'message' => 'data tidak ditemukan'
+            ],202);
+        }
     }
 }

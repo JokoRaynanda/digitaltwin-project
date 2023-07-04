@@ -51,11 +51,20 @@ class CoolingController extends Controller
     }
 
 
-    public function destroy(cooling $cooling)
+    public function destroy($id)
     {
-        $cooling->delete();
-        return response()->json([
-            'message' => 'data cooling terhapus'
-        ],204);
-    }
+        if(cooling::where('id',$id)->exists()) {
+            $cooling=cooling::find($id);
+            $cooling->delete();
+            return response()->json([
+                'message' => 'data cooling terhapus'
+            ],202);
+        }
+        else
+        {
+            return response()->json([
+                'message' => 'data tidak ditemukan'
+            ],202);
+        }
+    }   
 }

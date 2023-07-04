@@ -87,11 +87,20 @@ class AsetController extends Controller
     
 
 
-    public function destroy(aset $aset)
+    public function destroy($id)
     {
-        $aset->delete();
-        return response()->json([
-            'message' => 'data aset terhapus'
-        ],204);
+        if(aset::where('id',$id)->exists()) {
+            $aset=aset::find($id);
+            $aset->delete();
+            return response()->json([
+                'message' => 'data aset terhapus'
+            ],202);
+        }
+        else
+        {
+            return response()->json([
+                'message' => 'data tidak ditemukan'
+            ],202);
+        }
     }
 }

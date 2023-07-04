@@ -52,11 +52,20 @@ class FuelController extends Controller
     }
   
     //Remove the specified resource from storage.
-    public function destroy(Fuel $fuel)
+    public function destroy($id)
     {
-        $fuel->delete();
-        return response()->json([
-            'message' => 'data fuel terhapus'
-        ],204);
+        if(fuel::where('id',$id)->exists()) {
+            $fuel=fuel::find($id);
+            $fuel->delete();
+            return response()->json([
+                'message' => 'data fuel terhapus'
+            ],202);
+        }
+        else
+        {
+            return response()->json([
+                'message' => 'data tidak ditemukan'
+            ],202);
+        }
     }
 }

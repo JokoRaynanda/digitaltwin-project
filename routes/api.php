@@ -7,9 +7,14 @@ use App\Http\Controllers\FuelController;
 use App\Http\Controllers\ServoController;
 use App\Http\Controllers\AntaresController;
 use App\Http\Controllers\CoolingController;
+use App\Http\Controllers\DatasyncController;
 use App\Http\Controllers\AntarespostController;
 use App\Http\Controllers\TemperatureController;
-use App\Http\Controllers\DatasyncController;
+use App\Http\Controllers\AntaresAllDataController;
+use App\Http\Controllers\AsetController;
+use App\Http\Controllers\SensordeviceController;
+use App\Models\Aset;
+use App\Models\SensorDevice;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +37,10 @@ route::apiResource('temperature', TemperatureController::class);
 route::apiResource('rpm', RpmController::class); 
 route::apiResource('cooling', CoolingController::class); 
 route::apiResource('servo', ServoController::class); 
+route::apiResource('device', SensordeviceController::class); 
+route::apiResource('aset', AsetController::class); 
 //API Antares
-route::apiResource('antares', AntaresController::class);
-route::apiResource('datasync', DatasyncController::class);
-route::apiResource('antarespost', AntarespostController::class);
+route::get('/antares', [AntaresController::class, 'index']);              
+route::get('/antaresall', [AntaresAllDataController::class, 'index']);    
+route::post('/datasync', [DatasyncController::class, 'store']);           
+route::post('/antarespost', [AntarespostController::class, 'store']);      
