@@ -94,7 +94,7 @@ class DatasyncController extends Controller
                     Servo::create([
                         "device_id" => 4,
                         "servo_setrpm" => $item['servo'],
-                        "created_at_by_sensor" => $item['date'],
+                        "created_at_by_servo" => $item['date'],
                     ]);
                 } 
 
