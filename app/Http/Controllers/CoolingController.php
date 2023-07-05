@@ -67,4 +67,19 @@ class CoolingController extends Controller
             ],202);
         }
     }   
+
+    public function get_chart()
+    {
+        $cooling = cooling::latest('created_at_by_sensor')->take(10)->get();
+        $data = [];
+
+        foreach ($cooling as $value) {
+            $data[] = [
+                "x" => $value->created_at_by_sensor,
+                "y" => $value->engine_cooling
+            ];
+        }
+
+        return response()->json(["data"=>$data]);
+    }
 }

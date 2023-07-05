@@ -68,4 +68,19 @@ class FuelController extends Controller
             ],202);
         }
     }
+
+    public function get_chart()
+    {
+        $fuel = Fuel::latest('created_at_by_sensor')->take(10)->get();
+        $data = [];
+
+        foreach ($fuel as $value) {
+            $data[] = [
+                "x" => $value->created_at_by_sensor,
+                "y" => $value->engine_fuel
+            ];
+        }
+
+        return response()->json(["data"=>$data]);
+    }
 }

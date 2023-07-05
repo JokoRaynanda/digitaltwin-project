@@ -64,4 +64,19 @@ class RpmController extends Controller
             ],202);
         }
     }
+
+    public function get_chart()
+    {
+        $rpm = rpm::latest('created_at_by_sensor')->take(10)->get();
+        $data = [];
+
+        foreach ($rpm as $value) {
+            $data[] = [
+                "x" => $value->created_at_by_sensor,
+                "y" => $value->engine_rpm
+            ];
+        }
+
+        return response()->json(["data"=>$data]);
+    }
 }

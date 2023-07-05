@@ -67,4 +67,19 @@ class TemperatureController extends Controller
             ],202);
         }
     }
+
+    public function get_chart()
+    {
+        $temperature = temperature::latest('created_at_by_sensor')->take(10)->get();
+        $data = [];
+
+        foreach ($temperature as $value) {
+            $data[] = [
+                "x" => $value->created_at_by_sensor,
+                "y" => $value->engine_temperature
+            ];
+        }
+
+        return response()->json(["data"=>$data]);
+    }
 }
