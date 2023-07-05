@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\temperature;
+use App\Models\Temperature;
 use Illuminate\Http\Request;
 
 class TemperatureController extends Controller
@@ -10,54 +10,54 @@ class TemperatureController extends Controller
 
     public function index()
     {
-        $temperature = temperature::all();
+        $Temperature = Temperature::all();
         return response()->json([
-            'data'=> $temperature
+            'data'=> $Temperature
         ]);
     }
 
    
     public function store(Request $request)
     {
-        $temperature = temperature::create([
+        $Temperature = Temperature::create([
             'device_id' => $request->device_id,
-            'engine_temperature' => $request->engine_temperature,
+            'engine_Temperature' => $request->engine_Temperature,
             'created_at_by_sensor' => $request->created_at_by_sensor
         ]);
         return response()->json([
-            'data'=> $temperature
+            'data'=> $Temperature
         ]);
     }
 
  
-    public function show(temperature $temperature)
+    public function show(Temperature $Temperature)
     {
         return response()->json([
-            'data'=> $temperature
+            'data'=> $Temperature
         ]);
     }
 
 
-    public function update(Request $request, temperature $temperature)
+    public function update(Request $request, Temperature $Temperature)
     {
-        $temperature->device_id = $request->device_id;
-        $temperature->engine_temperature = $request->engine_temperature;
-        $temperature->created_at_by_sensor = $request->created_at_by_sensor;
-        $temperature->save();
+        $Temperature->device_id = $request->device_id;
+        $Temperature->engine_Temperature = $request->engine_Temperature;
+        $Temperature->created_at_by_sensor = $request->created_at_by_sensor;
+        $Temperature->save();
 
         return response()->json([
-            'data' => $temperature
+            'data' => $Temperature
         ]);
     }
 
 
     public function destroy($id)
     {
-        if(temperature::where('id',$id)->exists()) {
-            $temperature=temperature::find($id);
-            $temperature->delete();
+        if(Temperature::where('id',$id)->exists()) {
+            $Temperature=Temperature::find($id);
+            $Temperature->delete();
             return response()->json([
-                'message' => 'data temperature terhapus'
+                'message' => 'data Temperature terhapus'
             ],202);
         }
         else
@@ -70,13 +70,13 @@ class TemperatureController extends Controller
 
     public function get_chart()
     {
-        $temperature = temperature::latest('created_at_by_sensor')->take(10)->get();
+        $Temperature = Temperature::latest('created_at_by_sensor')->take(10)->get();
         $data = [];
 
-        foreach ($temperature as $value) {
+        foreach ($Temperature as $value) {
             $data[] = [
                 "x" => $value->created_at_by_sensor,
-                "y" => $value->engine_temperature
+                "y" => $value->engine_Temperature
             ];
         }
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\aset;
+use App\Models\Aset;
 use Illuminate\Http\Request;
 
 class AsetController extends Controller
@@ -12,15 +12,15 @@ class AsetController extends Controller
      */
     public function index()
     {
-        $aset = aset::all();
+        $Aset = Aset::all();
         return response()->json([
-            'data'=> $aset
+            'data'=> $Aset
         ]);
     }
 
     public function store(Request $request)
     {
-        $aset= aset::create([
+        $Aset= Aset::create([
             'engine_name' => $request->engine_name,
             'type' => $request->type,
             'model' => $request->model,
@@ -43,45 +43,45 @@ class AsetController extends Controller
             'compression_ratio'=> $request->compression_ratio,
         ]);
         return response()->json([
-            'data'=> $aset
+            'data'=> $Aset
         ]);
     }
 
 
-    public function show(aset $aset)
+    public function show(Aset $Aset)
     {
         return response()->json([
-            'aset'=> $aset
+            'Aset'=> $Aset
         ]);
     }
 
 
-    public function update(Request $request, aset $aset)
+    public function update(Request $request, Aset $Aset)
     {
-        $aset->engine_name = $request->engine_name;
-        $aset->type = $request->type;
-        $aset->model = $request->model;
-        $aset->cylinder = $request->cylinder;
-        $aset->bore = $request->bore;
-        $aset->stroke = $request->stroke;
-        $aset->engine_capacity = $request->engine_capacity;
-        $aset->cooling_capacity = $request->cooling_capacity;
-        $aset->rated_output = $request->rated_output;
-        $aset->max_output = $request->max_output;
-        $aset->fuel = $request->fuel;
-        $aset->SFOC = $request->SFOC;
-        $aset->volume_tank_capacity = $request->volume_tank_capacity;
-        $aset->volume_tank_oil = $request->volume_tank_oil;
-        $aset->length = $request->length;
-        $aset->height = $request->height;
-        $aset->widht = $request->widht;
-        $aset->weight = $request->weight;
-        $aset->lube_oil = $request->lube_oil;
-        $aset->compression_ratio = $request->compression_ratio;        
-        $aset->save();
+        $Aset->engine_name = $request->engine_name;
+        $Aset->type = $request->type;
+        $Aset->model = $request->model;
+        $Aset->cylinder = $request->cylinder;
+        $Aset->bore = $request->bore;
+        $Aset->stroke = $request->stroke;
+        $Aset->engine_capacity = $request->engine_capacity;
+        $Aset->cooling_capacity = $request->cooling_capacity;
+        $Aset->rated_output = $request->rated_output;
+        $Aset->max_output = $request->max_output;
+        $Aset->fuel = $request->fuel;
+        $Aset->SFOC = $request->SFOC;
+        $Aset->volume_tank_capacity = $request->volume_tank_capacity;
+        $Aset->volume_tank_oil = $request->volume_tank_oil;
+        $Aset->length = $request->length;
+        $Aset->height = $request->height;
+        $Aset->widht = $request->widht;
+        $Aset->weight = $request->weight;
+        $Aset->lube_oil = $request->lube_oil;
+        $Aset->compression_ratio = $request->compression_ratio;        
+        $Aset->save();
 
         return response()->json([
-            'aset' => $aset
+            'Aset' => $Aset
         ]);
     }
     
@@ -89,11 +89,11 @@ class AsetController extends Controller
 
     public function destroy($id)
     {
-        if(aset::where('id',$id)->exists()) {
-            $aset=aset::find($id);
-            $aset->delete();
+        if(Aset::where('id',$id)->exists()) {
+            $Aset=Aset::find($id);
+            $Aset->delete();
             return response()->json([
-                'message' => 'data aset terhapus'
+                'message' => 'data Aset terhapus'
             ],202);
         }
         else

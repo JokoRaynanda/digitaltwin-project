@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\sensordevice;
+use App\Models\SensorDevice;
 use Illuminate\Http\Request;
 
 class SensordeviceController extends Controller
@@ -12,16 +12,16 @@ class SensordeviceController extends Controller
      */
     public function index()
     {
-        $sensordevice = sensordevice::all();
+        $SensorDevice = SensorDevice::all();
         return response()->json([
-            'data'=> $sensordevice
+            'data'=> $SensorDevice
         ]);
     }
 
     
     public function store(Request $request)
     {
-        $sensordevice = sensordevice::create([
+        $SensorDevice = SensorDevice::create([
             'name_device'=> $request->name_device,
             'model'=> $request->model,
             'operating_voltage'=> $request->operating_voltage,
@@ -33,41 +33,41 @@ class SensordeviceController extends Controller
            
         ]);
         return response()->json([
-            'data'=> $sensordevice
+            'data'=> $SensorDevice
         ]);
     }
 
 
-    public function show(sensordevice $sensordevice)
+    public function show(SensorDevice $SensorDevice)
     {
         return response()->json([
-            'data'=> $sensordevice
+            'data'=> $SensorDevice
         ]);
     }
 
    
-    public function update(Request $request, sensordevice $sensordevice)
+    public function update(Request $request, SensorDevice $SensorDevice)
     {   
-        $sensordevice->name_device = $request->name_device;
-        $sensordevice->model = $request->model;
-        $sensordevice->operating_voltage = $request->operating_voltage;
-        $sensordevice->operating_current = $request->operating_current;
-        $sensordevice->length=  $request->length;
-        $sensordevice->width = $request->width;
-        $sensordevice->height = $request->height;
-        $sensordevice->save();
+        $SensorDevice->name_device = $request->name_device;
+        $SensorDevice->model = $request->model;
+        $SensorDevice->operating_voltage = $request->operating_voltage;
+        $SensorDevice->operating_current = $request->operating_current;
+        $SensorDevice->length=  $request->length;
+        $SensorDevice->width = $request->width;
+        $SensorDevice->height = $request->height;
+        $SensorDevice->save();
 
         return response()->json([
-            'data' => $sensordevice
+            'data' => $SensorDevice
         ]);
     }
 
 
     public function destroy($id)
     {
-        if(sensordevice::where('id',$id)->exists()) {
-            $sensordevice=sensordevice::find($id);
-            $sensordevice->delete();
+        if(SensorDevice::where('id',$id)->exists()) {
+            $SensorDevice=SensorDevice::find($id);
+            $SensorDevice->delete();
             return response()->json([
                 'message' => 'data sensor device terhapus'
             ],202);

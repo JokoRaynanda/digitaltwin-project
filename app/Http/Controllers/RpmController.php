@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\rpm;
+use App\Models\Rpm;
 use Illuminate\Http\Request;
 
 class RpmController extends Controller
@@ -10,7 +10,7 @@ class RpmController extends Controller
 
     public function index()
     {
-        $rpm = rpm::all();
+        $rpm = Rpm::all();
         return response()->json([
             'data'=> $rpm
         ]);
@@ -18,7 +18,7 @@ class RpmController extends Controller
 
     public function store(Request $request)
     {
-        $rpm = rpm::create([
+        $rpm = Rpm::create([
             'device_id' => $request->device_id,
             'engine_rpm' => $request->engine_rpm,
             'created_at_by_sensor' => $request->created_at_by_sensor
@@ -28,14 +28,14 @@ class RpmController extends Controller
         ]);
     }
 
-     public function show(rpm $rpm)
+     public function show(Rpm $rpm)
     {
         return response()->json([
             'data'=> $rpm
         ]);
     }
 
-    public function update(Request $request, rpm $rpm)
+    public function update(Request $request, Rpm $rpm)
     {
         $rpm->device_id = $request->device_id;
         $rpm->engine_rpm = $request->engine_rpm;
@@ -50,8 +50,8 @@ class RpmController extends Controller
    
    public function destroy($id)
     {
-        if(rpm::where('id',$id)->exists()) {
-            $rpm=rpm::find($id);
+        if(Rpm::where('id',$id)->exists()) {
+            $rpm=Rpm::find($id);
             $rpm->delete();
             return response()->json([
                 'message' => 'data rpm terhapus'
@@ -67,7 +67,7 @@ class RpmController extends Controller
 
     public function get_chart()
     {
-        $rpm = rpm::latest('created_at_by_sensor')->take(10)->get();
+        $rpm = Rpm::latest('created_at_by_sensor')->take(10)->get();
         $data = [];
 
         foreach ($rpm as $value) {

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\cooling;
+use App\Models\Cooling;
 use Illuminate\Http\Request;
 
 class CoolingController extends Controller
@@ -10,7 +10,7 @@ class CoolingController extends Controller
     
     public function index()
     {
-        $cooling = cooling::all();
+        $cooling = Cooling::all();
         return response()->json([
             'data'=> $cooling
         ]);
@@ -19,7 +19,7 @@ class CoolingController extends Controller
 
     public function store(Request $request)
     {
-        $cooling = cooling::create([
+        $cooling = Cooling::create([
             'device_id' => $request->device_id,
             'engine_cooling' => $request->engine_cooling,
             'created_at_by_sensor' => $request->created_at_by_sensor
@@ -30,7 +30,7 @@ class CoolingController extends Controller
     }
 
 
-    public function show(cooling $cooling)
+    public function show(Cooling $cooling)
     {
         return response()->json([
             'data'=> $cooling
@@ -38,7 +38,7 @@ class CoolingController extends Controller
     }
 
 
-    public function update(Request $request, cooling $cooling)
+    public function update(Request $request, Cooling $cooling)
     {
         $cooling->device_id = $request->device_id;
         $cooling->engine_cooling = $request->engine_cooling;
@@ -53,8 +53,8 @@ class CoolingController extends Controller
 
     public function destroy($id)
     {
-        if(cooling::where('id',$id)->exists()) {
-            $cooling=cooling::find($id);
+        if(Cooling::where('id',$id)->exists()) {
+            $cooling=Cooling::find($id);
             $cooling->delete();
             return response()->json([
                 'message' => 'data cooling terhapus'
@@ -70,7 +70,7 @@ class CoolingController extends Controller
 
     public function get_chart()
     {
-        $cooling = cooling::latest('created_at_by_sensor')->take(10)->get();
+        $cooling = Cooling::latest('created_at_by_sensor')->take(10)->get();
         $data = [];
 
         foreach ($cooling as $value) {
