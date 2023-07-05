@@ -41,9 +41,9 @@ route::apiResource('device', SensordeviceController::class);
 route::apiResource('aset', AsetController::class);
 //API Chart
 route::get('/chart/cooling', [CoolingController::class, 'get_chart']) ;
-route::get('/chart/rpm', [CoolingController::class, 'get_chart']) ;
-route::get('/chart/temperature', [CoolingController::class, 'get_chart']) ;
-route::get('/chart/fuel', [CoolingController::class, 'get_chart']) ;
+route::get('/chart/rpm', [RpmController::class, 'get_chart']) ;
+route::get('/chart/temperature', [TemperatureController::class, 'get_chart']) ;
+route::get('/chart/fuel', [FuelController::class, 'get_chart']) ;
 //API Antares
 route::get('/antares', [AntaresController::class, 'index']);              
 route::get('/antaresall', [AntaresAllDataController::class, 'index']);    
