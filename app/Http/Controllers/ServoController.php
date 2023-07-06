@@ -22,8 +22,8 @@ class ServoController extends Controller
     {
         $Servo = Servo::create([
             'id_device' => $request->id_device,
-            'Servo_setrpm' => $request->Servo_setrpm,
-            'created_at_by_Servo' => $request->created_at_by_Servo
+            'servo_setrpm' => $request->servo_setrpm,
+            'created_at_by_servo' => $request->created_at_by_servo
         ]);
         return response()->json([
             'data'=> $Servo
@@ -44,8 +44,8 @@ class ServoController extends Controller
     public function update(Request $request, Servo $Servo)
     {
         $Servo->device_id = $request->device_id;
-        $Servo->engine_fuel = $request->engine_fuel;
-        $Servo->created_at_by_Servo = $request->created_at_by_sServo;
+        $Servo->servo_setrpm = $request->servo_setrpm;
+        $Servo->created_at_by_servo = $request->created_at_by_servo;
         $Servo->save();
 
         return response()->json([

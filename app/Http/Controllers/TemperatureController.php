@@ -21,7 +21,7 @@ class TemperatureController extends Controller
     {
         $Temperature = Temperature::create([
             'device_id' => $request->device_id,
-            'engine_Temperature' => $request->engine_Temperature,
+            'engine_temperature' => $request->engine_temperature,
             'created_at_by_sensor' => $request->created_at_by_sensor
         ]);
         return response()->json([
@@ -41,7 +41,7 @@ class TemperatureController extends Controller
     public function update(Request $request, Temperature $Temperature)
     {
         $Temperature->device_id = $request->device_id;
-        $Temperature->engine_Temperature = $request->engine_Temperature;
+        $Temperature->engine_temperature = $request->engine_temperature;
         $Temperature->created_at_by_sensor = $request->created_at_by_sensor;
         $Temperature->save();
 
@@ -76,7 +76,7 @@ class TemperatureController extends Controller
         foreach ($Temperature as $value) {
             $data[] = [
                 "x" => $value->created_at_by_sensor,
-                "y" => $value->engine_Temperature
+                "y" => $value->engine_temperature
             ];
         }
 
