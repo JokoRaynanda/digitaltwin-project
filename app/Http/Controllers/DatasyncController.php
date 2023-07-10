@@ -20,7 +20,7 @@ class DatasyncController extends Controller
         $response = Http::withHeaders([
             'X-M2M-Origin' => '5fe73ec991d0d8bb:4bd2da90a6b504c5',
             'Content-Type' => 'application/json',
-        ])->acceptJson()->get('https://platform.antares.id:8443/~/antares-cse/antares-id/Digital-Twin/LoRa?ty=4&fu=1&drt=2');
+        ])->acceptJson()->get('https://platform.antares.id:8443/~/antares-cse/antares-id/Digital-Twin/WiFi?ty=4&fu=1&drt=2');
 
         $datas = $response->json();
         $datas = $datas["m2m:list"];
