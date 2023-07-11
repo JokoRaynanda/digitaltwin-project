@@ -70,7 +70,7 @@ class CoolingController extends Controller
 
     public function get_chart()
     {
-        $cooling = Cooling::latest('created_at_by_sensor')->take(10)->get();
+        $cooling = Cooling::latest('created_at_by_sensor')->take(25)->get();
         $data = [];
 
         foreach ($cooling as $value) {

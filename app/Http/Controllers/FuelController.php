@@ -71,7 +71,7 @@ class FuelController extends Controller
 
     public function get_chart()
     {
-        $fuel = Fuel::latest('created_at_by_sensor')->take(10)->get();
+        $fuel = Fuel::latest('created_at_by_sensor')->take(20)->get();
         $data = [];
 
         foreach ($fuel as $value) {

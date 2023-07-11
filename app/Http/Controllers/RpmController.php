@@ -67,7 +67,7 @@ class RpmController extends Controller
 
     public function get_chart()
     {
-        $rpm = Rpm::latest('created_at_by_sensor')->take(10)->get();
+        $rpm = Rpm::latest('created_at_by_sensor')->take(30)->get();
         $data = [];
 
         foreach ($rpm as $value) {

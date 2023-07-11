@@ -47,11 +47,11 @@ class AntarespostController extends Controller
                 $rawdatas = $this->antaresget();
 
                         $servo_state = $request->servo ?? 0;
-                        if ($servo_state > 180) {
-                            $servo_state = 180;
+                        if ($servo_state > 110) {
+                            $servo_state = 110;
                         }
-                        if ($servo_state < 0) {
-                            $servo_state = 0;
+                        if ($servo_state < 47) {
+                            $servo_state = 47;
                         }
 
                         $rawdatas["con"]["servo"] = "$servo_state";
