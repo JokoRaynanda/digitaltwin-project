@@ -70,7 +70,7 @@ class TemperatureController extends Controller
 
     public function get_chart()
     {
-        $Temperature = Temperature::latest('created_at_by_sensor')->take(40)->get();
+        $Temperature = Temperature::latest('created_at_by_sensor')->take(20)->get();
         $data = [];
 
         foreach ($Temperature as $value) {

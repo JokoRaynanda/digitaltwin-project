@@ -58,7 +58,7 @@ class AntarespostController extends Controller
                         
                         $dataArray = array (
                             'm2m:cin' => array (
-                                'con' => json_encode(['device' => $rawdatas["con"]]),
+                                'con' => json_encode(['device' => $rawdatas["con"]["servo"]]),
                             ),
                         );
 
