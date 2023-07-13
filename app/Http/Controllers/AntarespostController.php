@@ -50,24 +50,29 @@ class AntarespostController extends Controller
                         if ($servo_state > 110) {
                             $servo_state = 110;
                         }
-                        if ($servo_state < 47) {
-                            $servo_state = 47;
+                        if ($servo_state < 0) {
+                            $servo_state = 0;
                         }
 
                         $rawdatas["con"]["servo"] = "$servo_state";
                         
-                        
-                        $dataArray = array(
-                            'm2m:cin' => array(
-                                'con' => json_encode(array(
-                                    'device' => array(
-                                        'servo' => $rawdatas["con"]["servo"]
-                                    )
-                                ))
-                            )
+                        $dataArray = array (
+                            'm2m:cin' => array (
+                                'con' => json_encode(['device' => $rawdatas["con"]]),
+                            ),
                         );
 
-                        $url = 'https://platform.antares.id:8443/~/antares-cse/antares-id/Digital-Twin/Wifirec';
+                        // $dataArray = array(
+                        //     'm2m:cin' => array(
+                        //         'con' => json_encode(array(
+                        //             'device' => array(
+                        //                 'servo' => $rawdatas["con"]
+                        //             )
+                        //         ))
+                        //     )
+                        // );
+
+                        $url = 'https://platform.antares.id:8443/~/antares-cse/antares-id/Digital-Twin/WiFi';
 
                         $headers = array(
                             'X-M2M-Origin: 5fe73ec991d0d8bb:4bd2da90a6b504c5',
