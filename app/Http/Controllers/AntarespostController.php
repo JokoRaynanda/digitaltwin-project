@@ -56,10 +56,15 @@ class AntarespostController extends Controller
 
                         $rawdatas["con"]["servo"] = "$servo_state";
                         
-                        $dataArray = array (
-                            'm2m:cin' => array (
-                                'con' => json_encode(['device' => $rawdatas["con"]["servo"]]),
-                            ),
+                        
+                        $dataArray = array(
+                            'm2m:cin' => array(
+                                'con' => json_encode(array(
+                                    'device' => array(
+                                        'servo' => $rawdatas["con"]["servo"]
+                                    )
+                                ))
+                            )
                         );
 
                         $url = 'https://platform.antares.id:8443/~/antares-cse/antares-id/Digital-Twin/Wifirec';
