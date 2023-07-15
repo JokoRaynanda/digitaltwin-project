@@ -47,5 +47,5 @@ route::get('/chart/fuel', [FuelController::class, 'get_chart']) ;
 //API Antares
 route::get('/antares', [AntaresController::class, 'index']);              
 route::get('/antaresall', [AntaresAllDataController::class, 'index']);    
-route::apiResource('datasync', DatasyncController::class);           
+route::post('datasync', [DatasyncController::class, 'store']);           
 route::apiResource('antarespost', AntarespostController::class);      
