@@ -21,36 +21,37 @@ class DatasyncController extends Controller
             'X-M2M-Origin' => '5fe73ec991d0d8bb:4bd2da90a6b504c5',
             'Content-Type' => 'application/json',
         ])->acceptJson()->get('https://platform.antares.id:8443/~/antares-cse/antares-id/Digital-Twin/WiFi?ty=4&fu=1&drt=2');
-
+        
         $datas = $response->json();
         $datas = $datas["m2m:list"];
-
-        $dataToDB = [];
+        
+        // $dataToDB = [];
         $data_collection = array();
-
+        
         foreach ($datas as $data) {
             $record = json_decode($data["m2m:cin"]["con"], true);
+            $timestamp = date("Y-m-d H:i:s", strtotime($data["m2m:cin"]["ct"]));
             if (array_key_exists("device", $record)) $record = json_decode($data["m2m:cin"]["con"], true)["device"];
             array_push($data_collection, [
-                "date" => $data["m2m:cin"]["ct"],
+                "date" => $timestamp,
                 "exhaust" => $record['exhaust'] ?? 0,
                 "fuel" => $record['fuel'] ?? 0,
                 "cooling" => $record['cooling'] ?? 0,
                 "servo" => $record['servo'] ?? 0,
                 "rpm" => $record['rpm'] ?? 0,
-                "record" => $record,
+                // "record" => $record,
             ]);
-
-            $timestamp = date("Y-m-d H:i:s", strtotime($data["m2m:cin"]["ct"]));
-            array_push($dataToDB, $timestamp);
+            
+            
+            // array_push($dataToDB, $timestamp);
         }
         
         $data_collection = collect($data_collection)->sortBy('date')->values()->all();
         return $data_collection;
     }
-
     
-
+    
+    
     public function store()
     {
         DB::beginTransaction();
@@ -78,7 +79,7 @@ class DatasyncController extends Controller
                     ]);
                 } 
 
-                // sync temperature data
+                // // sync temperature data
                 $latestTemp = Temperature::where('created_at_by_sensor', $item['date'])->first();
                 if(!$latestTemp){
                     Temperature::create([
@@ -88,17 +89,22 @@ class DatasyncController extends Controller
                     ]);
                 } 
 
-                // sync servo data
+                // // sync servo data
                 $latestServo = Servo::where('created_at_by_servo', $item['date'])->first();
+                if(is_array($item['servo'])){
+                    $servo = 0;
+                } else {
+                    $servo = $item['servo'];
+                }
                 if(!$latestServo){
                     Servo::create([
                         "device_id" => 4,
-                        "servo_setrpm" => $item['servo'],
+                        "servo_setrpm" => $servo,
                         "created_at_by_servo" => $item['date'],
                     ]);
-                } 
+                }
 
-                // sync rpm data
+                // // sync rpm data
                 $latestRpm = Rpm::where('created_at_by_sensor', $item['date'])->first();
                 if(!$latestRpm){
                     Rpm::create([
